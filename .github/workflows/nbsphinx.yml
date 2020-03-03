@@ -49,12 +49,12 @@ jobs:
         run: python -m sphinx . ./_build/epub/ -W -b epub
       - name: Build PDF from LaTeX
         run: tectonic ./_build/latex/nbsphinx.tex
-      #- name: Upload _build folder
-      #  if: always()
-      #  uses: actions/upload-artifact@v1
-      #  with:
-      #    name: docs
-      #    path: doc/_build
+      - name: Upload _build folder
+        if: always()
+        uses: actions/upload-artifact@v1
+        with:
+          name: docs
+          path: ./_build
 
 
   
