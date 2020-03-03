@@ -20,6 +20,12 @@ jobs:
         with:
           activate-conda: false
           conda-channels: conda-forge
+      - uses: actions/cache@v1
+        with:
+          path: ~/.cache/pip
+          key: ${{ runner.os }}-pip-${{ hashFiles('**/requirements.txt') }}
+          restore-keys: |
+            ${{ runner.os }}-pip-
       - name: Install dependencies
         run: |
           conda install -y pandoc librsvg tectonic
