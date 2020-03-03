@@ -22,6 +22,7 @@ import os
 project = ''
 copyright = ''
 author = ''
+publisher = ''
 
 # The short X.Y version
 version = ''
@@ -180,6 +181,7 @@ texinfo_documents = [
 # Bibliographic Dublin Core info.
 epub_title = project if project else 'No title provided.'
 epub_author = author if author else 'No author provided.'
+epub_publisher = publisher if publisher else 'No publisher provided.'
 
 # The unique identifier of the text. This can be a ISBN number
 # or the project homepage.
