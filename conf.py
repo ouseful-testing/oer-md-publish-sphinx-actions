@@ -26,6 +26,11 @@ publisher = ''
 identifier = ''
 identifier_scheme = ''
 
+_latex_filename = 'nbsphinx.tex' # If this is changed, the Github Action to build the PDF will fail
+_latex_title = '' # if empty, use title of startdoc(?)
+_latex_author = author
+_latex_document_class = 'manual' # manual or howto
+
 # The short X.Y version
 version = '0.0.1' 
 # The full version, including alpha/beta/rc tags
@@ -151,32 +156,9 @@ latex_elements = {
 # (source start file, target name, title,
 #  author, documentclass [howto, manual, or own class]).
 latex_documents = [
-    (master_doc, 'LearnToCode.tex', 'Learn To Code Documentation',
-     'OpenLearn', 'manual'),
+    (master_doc, _latex_filename, _latex_title,
+     _latex_author, _latex_document_class),
 ]
-
-
-# -- Options for manual page output ------------------------------------------
-
-# One entry per manual page. List of tuples
-# (source start file, name, description, authors, manual section).
-man_pages = [
-    (master_doc, 'learntocode', 'Learn To Code Documentation',
-     [author], 1)
-]
-
-
-# -- Options for Texinfo output ----------------------------------------------
-
-# Grouping the document tree into Texinfo files. List of tuples
-# (source start file, target name, title, author,
-#  dir menu entry, description, category)
-texinfo_documents = [
-    (master_doc, 'LearnToCode', 'Learn To Code Documentation',
-     author, 'LearnToCode', 'One line description of project.',
-     'Miscellaneous'),
-]
-
 
 # -- Options for Epub output -------------------------------------------------
 
