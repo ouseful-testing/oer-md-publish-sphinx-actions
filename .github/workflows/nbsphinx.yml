@@ -1,0 +1,55 @@
+name: "nbsphinx publisher"
+# via: https://github.com/s-weigand/nbsphinx/blob/gh-action-ci-switch/.github/workflows/test.yml
+on: [push]
+
+jobs:
+
+  nbsphinx-publish:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+      - name: Set up Python 3.8
+        uses: actions/setup-python@v1
+        with:
+          python-version: 3.8
+      - name: Setup conda
+        uses: s-weigand/setup-conda@v1
+        with:
+          activate-conda: false
+          conda-channels: conda-forge
+      - name: Install dependencies
+        run: |
+          conda install -y pandoc librsvg tectonic
+          python -m pip install sphinx
+          python -m pip install nbsphinx
+          python -m pip install jupytext
+          (test -f requirements.txt && python -m pip install requirements.txt) || echo "No other requirements." 
+      #- name: Show installed dependencies
+      #  if: always()
+      #  run: |
+      #    python --version
+      #    python -c "import nbsphinx; print('nbsphinx.__version__==', nbsphinx.__version__)"
+      #    pandoc -v
+      #    pip freeze
+      - name: Build docs HTML
+        run: python -m sphinx . ./_build/html/ -W -b html
+      - name: Build docs LaTeX
+        run: python -m sphinx . ./_build/latex/ -W -b latex
+      - name: Build docs ePub
+        run: python -m sphinx . ./_build/epub/ -W -b epub
+      - name: Build PDF from LaTeX
+        run: tectonic ./_build/latex/nbsphinx.tex
+      - name: Upload _build folder
+        if: always()
+        uses: actions/upload-artifact@v1
+        with:
+          name: docs
+          path: doc/_build
+      - name: Deploy
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./_build/html
+
+  
