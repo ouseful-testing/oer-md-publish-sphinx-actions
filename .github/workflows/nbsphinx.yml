@@ -59,12 +59,17 @@ jobs:
         continue-on-error: true
         run: tectonic ./_build/latex/nbsphinx.tex
 
-      - name: Upload _build folder
+      - name: Create _artifacts folder
+        run: |
+          mkdir - p _artifacts
+          ( test -f ./_build/latex/nbsphinx.pdf && cp ./_build/latex/nbsphinx.pdf _artifacts) || echo "No PDF found."
+          ( test -f ./_build/epub/sphinx.epub && cp ./_build/epub/sphinx.epub _artifacts) || echo "No EPUB found."
+      - name: Upload _artifacts folder
         if: always()
         uses: actions/upload-artifact@v1
         with:
           name: docs
-          path: ./_build
+          path: ./_artifacts
 
       - name: Commits for build branch
         run: |       
