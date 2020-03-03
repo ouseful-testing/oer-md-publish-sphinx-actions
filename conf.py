@@ -23,6 +23,8 @@ project = ''
 copyright = ''
 author = ''
 publisher = ''
+identifier = ''
+identifier_scheme = ''
 
 # The short X.Y version
 version = ''
@@ -182,6 +184,7 @@ texinfo_documents = [
 epub_title = project if project else 'No title provided.'
 epub_author = author if author else 'No author provided.'
 epub_publisher = publisher if publisher else 'No publisher provided.'
+epub_copyright = copyright if copyright else 'No copyright notice provided'
 
 # The unique identifier of the text. This can be a ISBN number
 # or the project homepage.
