@@ -34,6 +34,13 @@ jobs:
       #    python -c "import nbsphinx; print('nbsphinx.__version__==', nbsphinx.__version__)"
       #    pandoc -v
       #    pip freeze
+
+      - name: Use build branch context
+        run: |
+          sudo chown -R $(whoami):$(whoami) .
+          git config --global user.email "$GITHUB_ACTOR@users.noreply.github.com"
+          git config --global user.name "$GITHUB_ACTOR"
+          git checkout -b build
       - name: Build docs HTML
         run: python -m sphinx . ./_build/html/ -W -b html
 
@@ -46,15 +53,30 @@ jobs:
       - name: Build docs LaTeX
         run: python -m sphinx . ./_build/latex/ -W -b latex
       - name: Build docs ePub
+        continue-on-error: true
         run: python -m sphinx . ./_build/epub/ -W -b epub
       - name: Build PDF from LaTeX
+        continue-on-error: true
         run: tectonic ./_build/latex/nbsphinx.tex
+
       - name: Upload _build folder
         if: always()
         uses: actions/upload-artifact@v1
         with:
           name: docs
           path: ./_build
+
+      - name: Commits for build branch
+        run: |       
+          git add --all --force _build
+          git commit -a --allow-empty-message -m 'Push build branch'
+ 
+      - name: Push changes to build branch
+        uses: ad-m/github-push-action@master
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          branch: build
+          force: true
 
 
   
