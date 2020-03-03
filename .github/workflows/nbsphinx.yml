@@ -1,7 +1,9 @@
 name: "nbsphinx publisher"
 # via: https://github.com/s-weigand/nbsphinx/blob/gh-action-ci-switch/.github/workflows/test.yml
-on: [push]
-
+on:
+  push:
+    branches:
+    - master
 jobs:
 
   nbsphinx-publish:
