@@ -181,10 +181,11 @@ texinfo_documents = [
 # -- Options for Epub output -------------------------------------------------
 
 # Bibliographic Dublin Core info.
-epub_title = project if project else 'No title provided.'
-epub_author = author if author else 'No author provided.'
-epub_publisher = publisher if publisher else 'No publisher provided.'
-epub_copyright = copyright if copyright else 'No copyright notice provided'
+epub_title = project #if project else 'No title provided.'
+epub_author = author #if author else 'No author provided.'
+epub_publisher = publisher #if publisher else 'No publisher provided.'
+epub_copyright = copyright #if copyright else 'No copyright notice provided'
+suppress_warnings = ['epub.unknown_project_files']
 
 # The unique identifier of the text. This can be a ISBN number
 # or the project homepage.
