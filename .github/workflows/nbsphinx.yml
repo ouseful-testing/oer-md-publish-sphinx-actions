@@ -55,6 +55,11 @@ jobs:
       - name: Build docs ePub
         continue-on-error: true
         run: python -m sphinx . ./_build/epub/ -W -b epub
+      - name: Cache Tectonic (latex / PDF) Packages
+        uses: actions/cache@v1
+        with:
+          path: ~/.cache/Tectonic
+          key: ${{ runner.os }}-tectonic-packages
       - name: Build PDF from LaTeX
         continue-on-error: true
         run: tectonic ./_build/latex/nbsphinx.tex
