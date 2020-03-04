@@ -48,7 +48,7 @@ jobs:
           git config --global user.name "$GITHUB_ACTOR"
           git checkout -b build
       - name: Build docs HTML
-        run: python -m sphinx . ./_build/html/ -W -b html
+        run: python -m sphinx . ./_build/html/ -b html
 
       - name: Deploy HTML site to gh-pages
         uses: peaceiris/actions-gh-pages@v3
@@ -57,10 +57,10 @@ jobs:
           publish_dir: ./_build/html
 
       - name: Build docs LaTeX
-        run: python -m sphinx . ./_build/latex/ -W -b latex
+        run: python -m sphinx . ./_build/latex/ -b latex
       - name: Build docs ePub
         continue-on-error: true
-        run: python -m sphinx . ./_build/epub/ -W -b epub
+        run: python -m sphinx . ./_build/epub/ -b epub
       - name: Cache Tectonic (latex / PDF) Packages
         uses: actions/cache@v1
         with:
