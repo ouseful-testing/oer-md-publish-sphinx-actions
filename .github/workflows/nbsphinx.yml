@@ -26,9 +26,15 @@ jobs:
           key: ${{ runner.os }}-pip-${{ hashFiles('**/requirements.txt') }}
           restore-keys: |
             ${{ runner.os }}-pip-
+      - uses: actions/cache@v1
+        with:
+          path: /home/runner/.conda/envs
+          key: ${{ runner.os }}-conda-${{ hashFiles('**/environment.y*ml') }}
+          restore-keys: |
+            ${{ runner.os }}-conda-
       - name: Install dependencies
         run: |
-          conda install -y --file ~/.github/environment.yml
+          conda install -y pandoc librsvg tectonic
           python -m pip install sphinx
           python -m pip install nbsphinx
           python -m pip install jupytext
