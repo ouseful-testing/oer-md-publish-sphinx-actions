@@ -3,7 +3,7 @@ name: "nbsphinx publisher"
 on:
   push:
     branches:
-    - master
+      - master
 jobs:
 
   nbsphinx-publish:
