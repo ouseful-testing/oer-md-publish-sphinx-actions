@@ -40,7 +40,7 @@ jobs:
           python -m pip install sphinx
           python -m pip install nbsphinx
           python -m pip install jupytext
-          (test -f requirements.txt && python -m pip install requirements.txt) || echo "No other requirements." 
+          (test -f requirements.txt && python -m pip install -r requirements.txt) || echo "No other requirements." 
       #- name: Show installed dependencies
       #  if: always()
       #  run: |
