@@ -6,7 +6,27 @@ on:
       - master
 jobs:
 
+  setup-build-branch:
+    if: (github.event.commits[0].message == 'Initial commit') && (github.run_number == 1)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - run: |
+          touch .init_build_branch
+          git config --global user.email "$GITHUB_ACTOR@users.noreply.github.com"
+          git config --global user.name "$GITHUB_ACTOR"
+          git checkout -b build
+          git add .init_build_branch
+          git commit -m 'Create build branch'
+      - name: Push changes to build branch
+        uses: ad-m/github-push-action@master
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          branch: build
+          force: true
+          
   nbsphinx-publish:
+    needs: setup-build-branch
     runs-on: ubuntu-latest
 
     steps:
